@@ -2,6 +2,7 @@ console.log("this is working");
 shownotes();
 document.getElementById("addBtn").addEventListener("click",function(e){
 let txt=document.getElementById("floatingTextarea2");
+let title=document.getElementById("title");
 console.log(txt.value);
 let notes=localStorage.getItem("notes");
 var notesObj=[];
@@ -14,7 +15,11 @@ if (notes == null) {
   else {
      notesObj = JSON.parse(notes);
    }
-   notesObj.push(txt.value);
+   myobj={
+      addtext: txt.value,
+      addtitle: title.value
+   }
+   notesObj.push(myobj);
 
   
 localStorage.setItem("notes",JSON.stringify(notesObj));
@@ -39,8 +44,8 @@ shownotes();
        html+=`<div class="card note-card " style="width: 18rem;">
            
        <div class="card-body">
-         <h5 class="card-title">Note ${index+1}</h5>
-         <p class="card-text">${element}</p>
+         <h5 class="card-title">Note ${element.addtitle}</h5>
+         <p class="card-text">${element.addtext}</p>
          <button id="${index}" class="btn btn-primary" onclick="deleteNote(this.id)" >Delete note</button>
        </div>
      </div>`;
